@@ -1,0 +1,245 @@
+{
+  "info": {
+    "_postman_id": "46090524-cb09-4eff-a2eb-60c081f80e94",
+    "name": "BPDTS API Tests",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "CityUsersApi",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "7846859f-ce3e-410d-8b3b-3eacfca8ca38",
+            "exec": [
+              "  pm.test(\"Verify Get City Users API\", function(){",
+              "    let jsonData = pm.response.json();",
+              "    ",
+              "    pm.expect(pm.response.text()).to.not.be.empty;",
+              "    pm.response.to.be.withBody;",
+              "    pm.response.to.be.json;",
+              "    pm.expect(jsonData.length).to.eql(6);",
+              "   ",
+              "})",
+              "",
+              "    ",
+              "  pm.test (\"Verify Response Of City Users API \",function(){",
+              "    let jsonData = pm.response.json() ",
+              "    for(var i = 0, len = jsonData.length; i < len; i++){",
+              "       ",
+              "    pm.expect(jsonData[i]).to.have.property('id'); ",
+              "    pm.expect(jsonData[i]).to.have.property('first_name');",
+              "    pm.expect(jsonData[i]).to.have.property('last_name');",
+              "    pm.expect(jsonData[i]).to.have.property('email');",
+              "    pm.expect(jsonData[i]).to.have.property('ip_address');",
+              "    pm.expect(jsonData[i]).to.have.property('latitude');",
+              "    pm.expect(jsonData[i]).to.have.property('longitude');",
+              "    ",
+              "   // console.log(jsonData[i]);",
+              " ",
+              "   ",
+              "}",
+              "  ",
+              "})",
+              "  ",
+              "",
+              "pm.test(\"Response time is less than 100ms\", function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(100);",
+              "});    ",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "a5ef0a08-4631-4c2e-9664-7a6a66f32c73",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{BaseUrl}}/city/London/users"
+      },
+      "response": []
+    },
+    {
+      "name": "InstructionsApi",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "01de0096-0b63-46ec-8ccc-b047671f0401",
+            "exec": [
+              "pm.test(\"Verify Get Instruction API\",function(){",
+              "        ",
+              "   pm.response.to.have.status(200); ",
+              "    ",
+              "})",
+              "",
+              "pm.test(\"Verify Response Of Instructions API\",function(){",
+              "    let jsonData = pm.response.json();",
+              "    console.log(jsonData.todo);",
+              "    pm.expect(jsonData).to.have.property(\"todo\");",
+              "    pm.expect(jsonData.todo).to.eql(pm.environment.get(\"ActualBody\"));",
+              "",
+              "    ",
+              "    ",
+              "})",
+              "    "
+            ],
+            "type": "text/javascript"
+          }
+        },
+        {
+          "listen": "prerequest",
+          "script": {
+            "id": "b77423cd-c402-4e4c-af4d-54b9faeb23e3",
+            "exec": [
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "20188ffa-2ee4-4cf6-9f9b-242bfea375cc",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{BaseUrl}}/instructions"
+      },
+      "response": []
+    },
+    {
+      "name": "UserIdApi",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "a1b54ccc-99e5-46fd-99b5-bfa6d8e140ec",
+            "exec": [
+              " pm.test(\"Verify Get UserId API\", function(){",
+              "  pm.response.to.have.status(200);",
+              "   ",
+              "})",
+              "",
+              "",
+              "pm.test(\"Verify Response Of User Id API\",function(){",
+              "    let jsonData = pm.response.json();",
+              "     //console.log(jsonData.id);",
+              "    pm.expect(jsonData.id).to.eql(123);",
+              "    pm.expect(jsonData.first_name).to.eql(\"Anderea\");",
+              "    pm.expect(jsonData.last_name).to.eql(\"Highnam\");",
+              "    pm.expect(jsonData.email).to.eql(\"ahighnam3e@wix.com\");",
+              "    pm.expect(jsonData.ip_address).to.eql(\"194.34.249.139\");",
+              "    pm.expect(jsonData.latitude).to.eql(40.8321934);",
+              "    pm.expect(jsonData.longitude).to.eql(40.0092505);",
+              "    pm.expect(jsonData.city).to.eql(\"Merkezk\u00f6y\");",
+              "   ",
+              "})",
+              "",
+              ""
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "eacd446a-e8a5-41a1-95bd-64e723126f35",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{BaseUrl}}/user/123"
+      },
+      "response": []
+    },
+    {
+      "name": "UserIdApi - InvalidId",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "f2cc512d-2268-401b-acd0-ce39509db77e",
+            "exec": [
+              "pm.test(\"Verify Get User By Id API - Incorrect Id \",function (){",
+              "    pm.response.to.have.status(404);",
+              "    ",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "694c9995-7f43-4df1-be37-59872df2394f",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{BaseUrl}}/user/nm"
+      },
+      "response": []
+    },
+    {
+      "name": "UsersApi",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "48a5fae2-953a-49b0-9386-55a09f02d2e7",
+            "exec": [
+              "pm.test(\"Verify Get Users API\",function(){",
+              "    ",
+              "    pm.response.to.have.status(200);",
+              "    let jsonData = pm.response.json();",
+              "    //console.log(jsonData.length);",
+              "    pm.expect(jsonData.length).to.be.eql(1000)",
+              "    ",
+              "",
+              "})",
+              "",
+              "",
+              "",
+              "pm.test(\"Verify Response Of Get Users API\",function(){",
+              "    ",
+              "    let jsonData = pm.response.json();",
+              "    // console.log(jsonData[7].id);",
+              "    pm.expect(jsonData.length).to.be.eql(1000);",
+              "    pm.expect(jsonData[7].id).to.be.eql(8);",
+              "    pm.expect(jsonData[7].first_name).to.be.eql(\"Carri\");",
+              "    pm.expect(jsonData[7].last_name).to.be.eql(\"Server\");",
+              "    pm.expect(jsonData[7].email).to.be.eql(\"cserver7@google.nl\");",
+              "    pm.expect(jsonData[7].ip_address).to.be.eql(\"222.203.3.67\");",
+              "    pm.expect(jsonData[7].latitude).to.be.eql(-6.1130137);",
+              "    pm.expect(jsonData[7].longitude).to.be.eql(106.1610343);",
+              "    ",
+              "    ",
+              "    ",
+              "})"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "_postman_id": "f68899ae-18ac-4bdb-b2c9-142befedc3d8",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": "{{BaseUrl}}/users"
+      },
+      "response": []
+    }
+  ]
+}
